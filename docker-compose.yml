@@ -1,0 +1,11 @@
+version: '2'
+services:
+  fastlogger:
+    build: .
+    restart: always
+    ports:
+     - 8080:8080
+    volumes:
+     - ./speed-log.txt:/speed-log.txt
+    environment:
+     - TZ=Europe/Riga
