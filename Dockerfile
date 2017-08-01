@@ -4,7 +4,7 @@ EXPOSE 8080
 
 WORKDIR /usr/src/app
 
-RUN apt-get install --no-install-recommends git
+RUN apk add --no-cache git
 
 COPY requirements.txt /usr/src/app/requirements.txt
 COPY main.py /usr/src/app/main.py
