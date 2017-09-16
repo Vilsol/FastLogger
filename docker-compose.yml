@@ -1,7 +1,7 @@
 version: '2'
 services:
   fastlogger:
-    build: .
+    image: vilsol/fastlogger
     restart: always
     ports:
      - 8080:8080
