@@ -35,8 +35,8 @@ $(document).ready(function () {
             count: 1,
             label: '1y'
         }, {
-            step: 'all',
-        }],
+            step: 'all'
+        }]
     };
 
     $.ajax({url: "/data"})
@@ -44,8 +44,12 @@ $(document).ready(function () {
             $("#loader").hide();
             $(".page-content").show();
 
+            var oneHourMin = Number.MAX_SAFE_INTEGER, oneDayMin = Number.MAX_SAFE_INTEGER, oneWeekMin = Number.MAX_SAFE_INTEGER, oneMonthMin = Number.MAX_SAFE_INTEGER;
+            var oneHourMax = 0, oneDayMax = 0, oneWeekMax = 0, oneMonthMax = 0;
+
             var oneHourSum = 0, oneDaySum = 0, oneWeekSum = 0, oneMonthSum = 0;
             var oneHourCount = 0, oneDayCount = 0, oneWeekCount = 0, oneMonthCount = 0;
+
             var currentTime = Date.now() / 1000;
 
             for(var i = data.length - 1; i >= 0; i--){
@@ -55,21 +59,53 @@ $(document).ready(function () {
                 if(diff < 3600){
                     oneHourSum += e.speed;
                     oneHourCount++;
+
+                    if(e.speed < oneHourMin){
+                        oneHourMin = e.speed;
+                    }
+                    
+                    if(e.speed > oneHourMax){
+                        oneHourMax = e.speed;
+                    }
                 }
 
                 if(diff < 86400){
                     oneDaySum += e.speed;
                     oneDayCount++;
+
+                    if(e.speed < oneDayMin){
+                        oneDayMin = e.speed;
+                    }
+
+                    if(e.speed > oneDayMax){
+                        oneDayMax = e.speed;
+                    }
                 }
 
                 if(diff < 604800){
                     oneWeekSum += e.speed;
                     oneWeekCount++;
+
+                    if(e.speed < oneWeekMin){
+                        oneWeekMin = e.speed;
+                    }
+
+                    if(e.speed > oneWeekMax){
+                        oneWeekMax = e.speed;
+                    }
                 }
 
                 if(diff < 18144000){
                     oneMonthSum += e.speed;
                     oneMonthCount++;
+
+                    if(e.speed < oneMonthMin){
+                        oneMonthMin = e.speed;
+                    }
+
+                    if(e.speed > oneMonthMax){
+                        oneMonthMax = e.speed;
+                    }
                 }else{
                     break; // No point going further
                 }
@@ -80,13 +116,23 @@ $(document).ready(function () {
             var oneWeekAvg = oneWeekSum / oneWeekCount;
             var oneMonthAvg = oneMonthSum / oneMonthCount;
 
-            $("#average-1-hour").html(oneHourAvg.toFixed(2));
-            $("#average-24-hours").html(oneDayAvg.toFixed(2));
-            $("#average-7-days").html(oneWeekAvg.toFixed(2));
-            $("#average-1-month").html(oneMonthAvg.toFixed(2));
+            $("#min-1-hour").html(oneHourMin.toFixed(2));
+            $("#min-24-hours").html(oneDayMin.toFixed(2));
+            $("#min-7-days").html(oneWeekMin.toFixed(2));
+            $("#min-1-month").html(oneMonthMin.toFixed(2));
 
-            var xRaw = [], x6Avg = [], x72Avg = [];
-            var yRaw = [], y6Avg = [], y72Avg = [];
+            $("#max-1-hour").html(oneHourMax.toFixed(2));
+            $("#max-24-hours").html(oneDayMax.toFixed(2));
+            $("#max-7-days").html(oneWeekMax.toFixed(2));
+            $("#max-1-month").html(oneMonthMax.toFixed(2));
+
+            $("#avg-1-hour").html(oneHourAvg.toFixed(2));
+            $("#avg-24-hours").html(oneDayAvg.toFixed(2));
+            $("#avg-7-days").html(oneWeekAvg.toFixed(2));
+            $("#avg-1-month").html(oneMonthAvg.toFixed(2));
+
+            var xRaw = [], x6Avg = [], x72Avg = [], x144Avg = [];
+            var yRaw = [], y6Avg = [], y72Avg = [], y144Avg = [];
 
             data.forEach(function(datum, i) {
                 xRaw.push(new Date(datum[xField] * 1000));
@@ -103,6 +149,11 @@ $(document).ready(function () {
                 sum = slice72.reduce(function(a, b) { return a + b; });
                 x72Avg.push(xRaw[i]);
                 y72Avg.push(sum / slice72.length);
+
+                var slice144 = yRaw.slice(Math.max(0, i - 143), Math.min(i + 1, xRaw.length - 1));
+                sum = slice144.reduce(function(a, b) { return a + b; });
+                x144Avg.push(xRaw[i]);
+                y144Avg.push(sum / slice144.length);
             }
 
             var prepared = [{
@@ -111,12 +162,17 @@ $(document).ready(function () {
                 x: xRaw,
                 y: yRaw
             },{
-                name: '6 Avg Mbps',
+                name: '1h Avg Mbps',
                 mode: 'lines',
                 x: x6Avg,
                 y: y6Avg
             },{
-                name: '72 Avg Mbps',
+                name: '12h Avg Mbps',
+                mode: 'lines',
+                x: x72Avg,
+                y: y72Avg
+            },{
+                name: '24h Avg Mbps',
                 mode: 'lines',
                 x: x72Avg,
                 y: y72Avg
