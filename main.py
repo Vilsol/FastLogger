@@ -1,6 +1,5 @@
 from multiprocessing.dummy import Pool as ThreadPool
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from pathlib import Path
 
 import fastdotcom
 import time
@@ -20,7 +19,8 @@ class LogHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
-        self.wfile.write(bytes(Path(output_file).read_text(), "utf8"))
+        with open(output_file) as out:
+            self.wfile.write(bytes(out.read(), "utf8"))
 
     def log_message(self, format, *args):
         return
