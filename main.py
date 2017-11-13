@@ -40,16 +40,28 @@ async def get_raw(request):
         return web.Response(body=out.read().encode('utf-8'), content_type='text/plain')
 
 
+async def get_index(request):
+    return web.HTTPFound('/index.html')
+
+
 def run_webserver(port, loop):
-    app = web.Application(loop=loop)
-    app.router.add_static('/node_modules', './node_modules')
-    app.router.add_get('/raw', get_raw)
-    app.router.add_get('/data', get_data)
-    app.router.add_static('/', './static')
-    web.run_app(app, port=port, loop=loop)
+    print("Starting Webserver")
+
+    try:
+        app = web.Application(loop=loop)
+        app.router.add_static('/node_modules', './node_modules')
+        app.router.add_get('/raw', get_raw)
+        app.router.add_get('/data', get_data)
+        app.router.add_get('/', get_index)
+        app.router.add_static('/', './static')
+        web.run_app(app, port=port, loop=loop, handle_signals=False)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
+    print("Starting Logger")
+
     open(output_file, "a+").close()
 
     p = Process(target=run_webserver, args=(listen_port, asyncio.get_event_loop(),))

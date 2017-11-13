@@ -19,7 +19,6 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache git tzdata
 
 COPY requirements.txt /usr/src/app/requirements.txt
-COPY main.py /usr/src/app/main.py
 
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -33,4 +32,6 @@ COPY static/index.html /usr/src/app/static/index.html
 COPY static/style.css /usr/src/app/static/style.css
 COPY static/js.js /usr/src/app/static/js.js
 
-CMD ["python", "./main.py"]
+COPY main.py /usr/src/app/main.py
+
+CMD ["python", "-u", "./main.py"]
