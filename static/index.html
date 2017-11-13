@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Hello, world!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center" id="logo-row">
+            <div class="col-auto">
+                <h1 class="display-2">FastLogger</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="row justify-content-center" id="loader">
+            <div class="col-auto">
+                <div class="sk-circle">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row page-content" style="display: none">
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">1 Hour</div>
+                    <div class="card-body">
+                        <h4 class="card-title"><span id="average-1-hour">0.0</span> Mbps</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">24 Hours</div>
+                    <div class="card-body">
+                        <h4 class="card-title"><span id="average-24-hours">0.0</span> Mbps</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">7  Days</div>
+                    <div class="card-body">
+                        <h4 class="card-title"><span id="average-7-days">0.0</span> Mbps</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">1 Month</div>
+                    <div class="card-body">
+                        <h4 class="card-title"><span id="average-1-month">0.0</span> Mbps</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row page-content" style="display: none">
+            <div class="col">
+                <div id="graph" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/plotly.js/dist/plotly.min.js"></script>
+    <script src="js.js"></script>
+</body>
+</html>
