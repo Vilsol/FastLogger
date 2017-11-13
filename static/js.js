@@ -95,7 +95,7 @@ $(document).ready(function () {
                     }
                 }
 
-                if(diff < 18144000){
+                if(diff < 2592000){
                     oneMonthSum += e.speed;
                     oneMonthCount++;
 
