@@ -23,7 +23,7 @@ COPY requirements.txt /usr/src/app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --from=assets /usr/src/app/node_modules/bootstrap/dist/css/bootstrap.min.css /usr/src/app/node_modules/bootstrap/dist/css/bootstrap.min.css
-COPY --from=assets /usr/src/app/node_modules/jquery/dist/jquery.min.js /usr/src/app/node_modules/jquery/dist/jquery.min.js /
+COPY --from=assets /usr/src/app/node_modules/jquery/dist/jquery.min.js /usr/src/app/node_modules/jquery/dist/jquery.min.js
 COPY --from=assets /usr/src/app/node_modules/popper.js/dist/popper.min.js /usr/src/app/node_modules/popper.js/dist/popper.min.js
 COPY --from=assets /usr/src/app/node_modules/bootstrap/dist/js/bootstrap.min.js /usr/src/app/node_modules/bootstrap/dist/js/bootstrap.min.js
 COPY --from=assets /usr/src/app/node_modules/plotly.js/dist/plotly.min.js /usr/src/app/node_modules/plotly.js/dist/plotly.min.js
