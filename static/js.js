@@ -44,7 +44,7 @@ $(document).ready(function () {
             $("#loader").hide();
             $(".page-content").show();
 
-            var oneHourMin = Number.MAX_SAFE_INTEGER, oneDayMin = Number.MAX_SAFE_INTEGER, oneWeekMin = Number.MAX_SAFE_INTEGER, oneMonthMin = Number.MAX_SAFE_INTEGER;
+            var oneHourMin = -1, oneDayMin = -1, oneWeekMin = -1, oneMonthMin = -1;
             var oneHourMax = 0, oneDayMax = 0, oneWeekMax = 0, oneMonthMax = 0;
 
             var oneHourSum = 0, oneDaySum = 0, oneWeekSum = 0, oneMonthSum = 0;
@@ -60,7 +60,7 @@ $(document).ready(function () {
                     oneHourSum += e.speed;
                     oneHourCount++;
 
-                    if(e.speed < oneHourMin){
+                    if(e.speed < oneHourMin || oneHourMin === -1){
                         oneHourMin = e.speed;
                     }
                     
@@ -73,7 +73,7 @@ $(document).ready(function () {
                     oneDaySum += e.speed;
                     oneDayCount++;
 
-                    if(e.speed < oneDayMin){
+                    if(e.speed < oneDayMin || oneDayMin === -1){
                         oneDayMin = e.speed;
                     }
 
@@ -86,7 +86,7 @@ $(document).ready(function () {
                     oneWeekSum += e.speed;
                     oneWeekCount++;
 
-                    if(e.speed < oneWeekMin){
+                    if(e.speed < oneWeekMin || oneWeekMin === -1){
                         oneWeekMin = e.speed;
                     }
 
@@ -99,7 +99,7 @@ $(document).ready(function () {
                     oneMonthSum += e.speed;
                     oneMonthCount++;
 
-                    if(e.speed < oneMonthMin){
+                    if(e.speed < oneMonthMin || oneMonthMin === -1){
                         oneMonthMin = e.speed;
                     }
 
@@ -111,10 +111,15 @@ $(document).ready(function () {
                 }
             }
 
-            var oneHourAvg = oneHourSum / oneHourCount;
-            var oneDayAvg = oneDaySum / oneDayCount;
-            var oneWeekAvg = oneWeekSum / oneWeekCount;
-            var oneMonthAvg = oneMonthSum / oneMonthCount;
+            var oneHourAvg = (oneHourSum / oneHourCount) || 0;
+            var oneDayAvg = (oneDaySum / oneDayCount) || 0;
+            var oneWeekAvg = (oneWeekSum / oneWeekCount) || 0;
+            var oneMonthAvg = (oneMonthSum / oneMonthCount) || 0;
+
+            oneHourMin = (oneHourMin === -1 ? 0 : oneHourMin);
+            oneDayMin = (oneDayMin === -1 ? 0 : oneDayMin);
+            oneWeekMin = (oneWeekMin === -1 ? 0 : oneWeekMin);
+            oneMonthMin = (oneMonthMin === -1 ? 0 : oneMonthMin);
 
             $("#min-1-hour").html(oneHourMin.toFixed(2));
             $("#min-24-hours").html(oneDayMin.toFixed(2));
