@@ -31,6 +31,7 @@ COPY --from=assets /usr/src/app/node_modules/plotly.js/dist/plotly.min.js /usr/s
 COPY static/index.html /usr/src/app/static/index.html
 COPY static/style.css /usr/src/app/static/style.css
 COPY static/js.js /usr/src/app/static/js.js
+COPY static/octocat.png /usr/src/app/static/octocat.png
 
 COPY main.py /usr/src/app/main.py
 
